@@ -1,0 +1,43 @@
+server:
+  port: 8070
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: testdb
+  kafka:
+    bootstrap-servers: localhost:9092
+#    si-topic-pattern: si-topic.*
+    consumer:
+      group-id: gid
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: kafka
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  cloud:
+    config:
+      enabled: false
+
+sh:
+  topic:
+    luBound: bound-topic
+    #siInput: test-si-topic1 # not used here we just listen with pattern
+
+
+
+logging:
+  level:
+    root: ERROR
+
+org:
+  springframework: ERROR
